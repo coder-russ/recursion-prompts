@@ -92,6 +92,36 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  } else if (exp < 1) {
+    var negExp = -(exp);
+    var neg = function() {
+      if (negExp === 0) {
+        return 1;
+      } else {
+        var result = exponent(base, negExp - 1) * base;
+        return result;
+      }
+    };
+    result = 1 / neg();
+    return result
+  } else if (exp % 2 === 0) {
+    var evenExp = exp / 2;
+    var even = function() {
+      if (evenExp === 0) {
+        return 1;
+      } else {
+        var result = exponent(base, evenExp - 1) * base;
+        return result;
+      }
+    };
+    result = even();
+    return result * result;
+  } else {
+    var result = exponent(base, exp - 1) * base;
+    return result;
+  }
 };
 
 // 8. Determine if a number is a power of two.
